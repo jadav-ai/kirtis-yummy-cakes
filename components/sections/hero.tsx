@@ -27,27 +27,28 @@ function SplitLine({
   className: string
   baseDelay: number
 }) {
-  const chars = Array.from(text)
+  // Word-level stagger (1–3 motion nodes per line) instead of char-level.
+  // Same cinematic reveal, ~10x fewer DOM animations — easier on the GPU.
+  const words = text.split(" ")
   return (
     <div
       className={`font-serif font-light leading-[0.88] text-[68px] md:text-[110px] lg:text-[148px] ${className}`}
       style={{ overflow: "hidden" }}
     >
-      <span className="inline-flex flex-wrap">
-        {chars.map((ch, i) => (
+      <span className="inline-flex flex-wrap gap-x-4">
+        {words.map((w, i) => (
           <motion.span
-            key={`${ch}-${i}`}
-            initial={{ y: -80, opacity: 0 }}
+            key={`${w}-${i}`}
+            initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
-              duration: 0.9,
-              delay: baseDelay + i * 0.022,
-              ease: [0.34, 1.56, 0.64, 1], // back.out(1.4)-ish
+              duration: 0.8,
+              delay: baseDelay + i * 0.08,
+              ease: [0.34, 1.2, 0.64, 1],
             }}
             className="inline-block"
-            style={{ whiteSpace: ch === " " ? "pre" : "normal" }}
           >
-            {ch}
+            {w}
           </motion.span>
         ))}
       </span>
@@ -62,13 +63,13 @@ export function Hero() {
     if (!imgRef.current) return
     const ctx = gsap.context(() => {
       gsap.to(imgRef.current, {
-        yPercent: -18,
+        yPercent: -12,
         ease: "none",
         scrollTrigger: {
           trigger: imgRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1.5,
+          scrub: 0.6,
         },
       })
     })

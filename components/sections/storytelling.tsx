@@ -10,13 +10,17 @@ if (typeof window !== "undefined") {
 
 /**
  * Scroll-scrubbed, pinned editorial storytelling sequence.
- * 280vh of scroll space -> 4 overlapping steps.
- * Background scrubs void -> cream across the section.
+ * 280vh of scroll space -> 3 overlapping steps.
+ * Background transitions void -> dark-rose -> cream via opacity cross-fade
+ * between stacked pre-rendered color layers (no paint-heavy backgroundColor
+ * interpolation).
  */
 export function Storytelling() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const pinRef = useRef<HTMLDivElement>(null)
-  const bgRef = useRef<HTMLDivElement>(null)
+  const bgVoid = useRef<HTMLDivElement>(null)
+  const bgRose = useRef<HTMLDivElement>(null)
+  const bgCream = useRef<HTMLDivElement>(null)
   const step1 = useRef<HTMLDivElement>(null)
   const step2 = useRef<HTMLDivElement>(null)
   const step3 = useRef<HTMLDivElement>(null)
@@ -30,45 +34,36 @@ export function Storytelling() {
           start: "top top",
           end: "+=280%",
           pin: pinRef.current,
-          scrub: 1.5,
+          scrub: 0.6,
         },
       })
 
-      // bg: void -> dark-rose -> cream
-      tl.to(
-        bgRef.current,
-        { backgroundColor: "#3a1823", duration: 0.5 },
-        0,
-      )
-        .to(bgRef.current, { backgroundColor: "#7a3847", duration: 0.5 }, 0.5)
-        .to(bgRef.current, { backgroundColor: "#FFF8F0", duration: 0.5 }, 1.5)
+      // Cross-fade bg layers (opacity-only = GPU compositing, no paint).
+      tl.to(bgRose.current, { opacity: 1, duration: 0.6 }, 0.4)
+        .to(bgVoid.current, { opacity: 0, duration: 0.6 }, 0.4)
+        .to(bgCream.current, { opacity: 1, duration: 0.6 }, 1.5)
+        .to(bgRose.current, { opacity: 0, duration: 0.6 }, 1.5)
 
-      // step1 visible 0 -> 0.3
       tl.fromTo(
         step1.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.3 },
         0,
-      )
-        .to(step1.current, { opacity: 0, y: -30, duration: 0.3 }, 0.7)
+      ).to(step1.current, { opacity: 0, y: -30, duration: 0.3 }, 0.7)
 
-      // step2 0.7 -> 1.6
       tl.fromTo(
         step2.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.4 },
         0.8,
-      )
-        .to(step2.current, { opacity: 0, y: -30, duration: 0.4 }, 1.6)
+      ).to(step2.current, { opacity: 0, y: -30, duration: 0.4 }, 1.6)
 
-      // step3 1.6 -> 2.4
       tl.fromTo(
         step3.current,
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.4 },
         1.7,
-      )
-        .to(step3.current, { opacity: 0, y: -20, duration: 0.4 }, 2.4)
+      ).to(step3.current, { opacity: 0, y: -20, duration: 0.4 }, 2.4)
     }, sectionRef)
 
     return () => ctx.revert()
@@ -80,18 +75,22 @@ export function Storytelling() {
         ref={pinRef}
         className="relative h-screen w-full flex items-center justify-center overflow-hidden"
       >
+        {/* Stacked bg layers — cross-fade instead of animating backgroundColor */}
+        <div ref={bgVoid} className="absolute inset-0" style={{ backgroundColor: "var(--void)" }} />
         <div
-          ref={bgRef}
-          className="absolute inset-0 transition-colors"
-          style={{ backgroundColor: "var(--void)" }}
+          ref={bgRose}
+          className="absolute inset-0"
+          style={{ backgroundColor: "#5a2634", opacity: 0 }}
+        />
+        <div
+          ref={bgCream}
+          className="absolute inset-0"
+          style={{ backgroundColor: "var(--cream)", opacity: 0 }}
         />
         <div className="grain-overlay grain-dark absolute inset-0 pointer-events-none" />
 
         <div className="relative z-10 max-w-[1200px] px-6 text-center">
-          <div
-            ref={step1}
-            className="absolute inset-0 flex items-center justify-center"
-          >
+          <div ref={step1} className="absolute inset-0 flex items-center justify-center">
             <h2
               className="font-serif font-light text-[54px] md:text-[92px] lg:text-[118px] leading-[0.95] text-balance"
               style={{ color: "var(--ivory)" }}

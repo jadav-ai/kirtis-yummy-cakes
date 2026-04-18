@@ -100,34 +100,38 @@
     overflow-x: hidden;
   }
 
-  /* hide default cursor everywhere on desktop */
-  @media (hover: hover) and (pointer: fine) {
-    html,
-    body,
-    a,
-    button,
-    [role='button'] {
-      cursor: none !important;
-    }
+  /* hide default cursor on desktops that opt in (set via JS when the
+     custom cursor is actually active). Avoids hiding the cursor on
+     low-perf / touch devices where we fall back to the native one. */
+  html.kyc-cursor-on,
+  html.kyc-cursor-on body,
+  html.kyc-cursor-on a,
+  html.kyc-cursor-on button,
+  html.kyc-cursor-on [role='button'] {
+    cursor: none !important;
   }
 }
 
 /* ============================================
    GRAIN OVERLAY (global analog texture)
 ============================================ */
+/* Scope grain to its containing section and drop the mix-blend-mode — it
+   forces the browser to composite the whole document every frame on
+   integrated GPUs. Plain low-opacity overlay is ~10x cheaper and visually
+   indistinguishable. */
 .grain-overlay::after {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: overlay;
+  z-index: 1;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
 }
 
 .grain-dark::after {
-  opacity: 0.065;
+  opacity: 0.08;
 }
 
 /* ============================================
@@ -142,24 +146,54 @@
     radial-gradient(at 70% 80%, rgba(26, 10, 14, 1) 0px, transparent 60%),
     radial-gradient(at 30% 90%, rgba(75, 20, 35, 0.8) 0px, transparent 55%),
     linear-gradient(135deg, var(--void) 0%, var(--dark-rose) 100%);
-  background-size: 200% 200%;
-  animation: aurora 14s ease-in-out infinite alternate;
+  background-size: 180% 180%;
+  /* GPU-friendly: slow position-only animation, no filter animations. */
+  animation: aurora 32s ease-in-out infinite alternate;
   z-index: 0;
+  /* contain paints so scrolling doesn't re-paint the whole doc */
+  contain: paint;
 }
 
 @keyframes aurora {
   0% {
     background-position: 0% 0%;
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    background-position: 100% 50%;
-    filter: hue-rotate(8deg);
   }
   100% {
-    background-position: 50% 100%;
-    filter: hue-rotate(-6deg);
+    background-position: 100% 100%;
   }
+}
+
+/* Static variant for low-perf devices */
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .aurora-bg {
+    animation: none;
+  }
+}
+
+/* ============================================
+   CSS-ONLY PARTICLE FLOAT (replaces tsparticles)
+============================================ */
+@keyframes particleFloat {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.45;
+  }
+  85% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(var(--drift, 0px), -80px, 0);
+    opacity: 0;
+  }
+}
+.particle-float {
+  animation-name: particleFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
 }
 
 /* ============================================

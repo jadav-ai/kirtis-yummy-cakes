@@ -20,13 +20,13 @@ export function Cta() {
     if (!imgRef.current || !sectionRef.current) return
     const ctx = gsap.context(() => {
       gsap.to(imgRef.current, {
-        yPercent: 18,
+        yPercent: 10,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1.5,
+          scrub: 0.6,
         },
       })
     })

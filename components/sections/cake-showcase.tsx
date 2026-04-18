@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef, type MouseEvent } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLowPerf } from "@/hooks/use-low-perf"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -85,20 +86,22 @@ const CAKES: Cake[] = [
   },
 ]
 
-function CakeCard({ cake }: { cake: Cake }) {
+function CakeCard({ cake, tilt }: { cake: Cake; tilt: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [8, -8]), {
-    stiffness: 150,
-    damping: 20,
+  // Softer springs: less stiffness = fewer RAF iterations to settle.
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), {
+    stiffness: 90,
+    damping: 18,
   })
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), {
-    stiffness: 150,
-    damping: 20,
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 90,
+    damping: 18,
   })
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!tilt) return
     const el = ref.current
     if (!el) return
     const r = el.getBoundingClientRect()
@@ -106,6 +109,7 @@ function CakeCard({ cake }: { cake: Cake }) {
     my.set((e.clientY - r.top) / r.height - 0.5)
   }
   const onLeave = () => {
+    if (!tilt) return
     mx.set(0)
     my.set(0)
   }
@@ -113,10 +117,10 @@ function CakeCard({ cake }: { cake: Cake }) {
   return (
     <motion.div
       ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      onMouseMove={tilt ? onMove : undefined}
+      onMouseLeave={tilt ? onLeave : undefined}
       data-cursor-label="EXPLORE"
-      style={{ rotateX, rotateY, transformPerspective: 1200 }}
+      style={tilt ? { rotateX, rotateY, transformPerspective: 1200 } : undefined}
       className="relative shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[74vh] md:h-[82vh] max-h-[760px] flex flex-col"
     >
       {/* Number watermark */}
@@ -194,6 +198,7 @@ export function CakeShowcase() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
+  const low = useLowPerf()
 
   useEffect(() => {
     if (!wrapperRef.current || !trackRef.current) return
@@ -211,7 +216,8 @@ export function CakeShowcase() {
           start: "top top",
           end: () => `+=${totalScroll}`,
           pin: true,
-          scrub: 1.5,
+          // Tighter scrub = less work per frame on weaker GPUs.
+          scrub: 0.6,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             if (progressRef.current) {
@@ -282,7 +288,7 @@ export function CakeShowcase() {
         >
           {CAKES.map((c) => (
             <div key={c.num} className="group">
-              <CakeCard cake={c} />
+              <CakeCard cake={c} tilt={!low} />
             </div>
           ))}
         </div>
@@ -304,7 +310,7 @@ export function CakeShowcase() {
       <div className="md:hidden grid grid-cols-1 gap-10 px-6 pb-20">
         {CAKES.map((c) => (
           <div key={c.num} className="group">
-            <CakeCard cake={c} />
+            <CakeCard cake={c} tilt={false} />
           </div>
         ))}
       </div>

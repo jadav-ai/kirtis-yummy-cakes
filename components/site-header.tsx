@@ -39,15 +39,21 @@ export function SiteHeader() {
       >
         <div
           className={[
-            "pointer-events-auto flex items-center gap-8 transition-[background-color,backdrop-filter,border-color,padding,margin,border-radius] duration-500",
+            "pointer-events-auto flex items-center gap-8 transition-[background-color,border-color] duration-500",
+            "mt-4 md:mt-6 px-5 md:px-7 py-2.5 md:py-3 rounded-full border",
             scrolled
-              ? "mt-4 md:mt-6 px-5 md:px-7 py-2.5 md:py-3 rounded-full border border-[rgba(212,175,55,0.22)]"
-              : "mt-4 md:mt-6 px-5 md:px-7 py-2.5 md:py-3 rounded-full border border-transparent",
+              ? "border-[rgba(212,175,55,0.25)]"
+              : "border-transparent",
           ].join(" ")}
           style={{
-            background: scrolled ? "rgba(255,248,240,0.12)" : "rgba(255,248,240,0.04)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
+            // Use a more opaque solid color when scrolled (no blur cost),
+            // and a thin tint when at top. backdrop-filter dropped to 8px
+            // — cheap on Iris Xe, still legible over the dark hero.
+            background: scrolled
+              ? "rgba(26,10,14,0.55)"
+              : "rgba(255,248,240,0.04)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
           }}
         >
           {/* Monogram */}

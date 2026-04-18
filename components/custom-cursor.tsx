@@ -1,28 +1,29 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useLowPerf } from "@/hooks/use-low-perf"
 
 /**
- * Blush-gold morphing custom cursor.
- * - Outer ring: 44px blush border, springs with ~0.14s lag (CSS + RAF easing)
- * - Inner dot: 5px champagne gold, instant follow
- * - On hoverable elements: ring grows to 72px, fills blush@12%, dot disappears
- *   and shows an optional label ("VIEW", "EXPLORE", "ORDER")
+ * Blush-gold morphing custom cursor. Only runs on desktops that report
+ * enough headroom (via useLowPerf). On low-perf machines / touch devices
+ * the native cursor stays visible and no RAF loop runs — saving ~1–2%
+ * continuous CPU.
  */
 export function CustomCursor() {
+  const low = useLowPerf()
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const mouse = useRef({ x: -100, y: -100 })
   const ringPos = useRef({ x: -100, y: -100 })
   const frame = useRef<number>(0)
-  const [enabled, setEnabled] = useState(false)
   const [label, setLabel] = useState("VIEW")
 
   useEffect(() => {
-    // Only enable on real mouse pointer devices
+    if (low) return
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     if (!canHover) return
-    setEnabled(true)
+
+    document.documentElement.classList.add("kyc-cursor-on")
 
     const onMove = (e: MouseEvent) => {
       mouse.current.x = e.clientX
@@ -33,7 +34,6 @@ export function CustomCursor() {
     }
 
     const tick = () => {
-      // spring-lag for the ring (~0.14s feel via 0.16 lerp)
       ringPos.current.x += (mouse.current.x - ringPos.current.x) * 0.16
       ringPos.current.y += (mouse.current.y - ringPos.current.y) * 0.16
       if (ringRef.current) {
@@ -43,7 +43,6 @@ export function CustomCursor() {
     }
     frame.current = requestAnimationFrame(tick)
 
-    // Hover detection via delegation; we look for [data-cursor] or common interactive elements
     const onOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       if (!target) return
@@ -64,18 +63,19 @@ export function CustomCursor() {
       }
     }
 
-    document.addEventListener("mousemove", onMove)
-    document.addEventListener("mouseover", onOver)
+    document.addEventListener("mousemove", onMove, { passive: true })
+    document.addEventListener("mouseover", onOver, { passive: true })
 
     return () => {
       cancelAnimationFrame(frame.current)
       document.removeEventListener("mousemove", onMove)
       document.removeEventListener("mouseover", onOver)
+      document.documentElement.classList.remove("kyc-cursor-on")
       document.body.classList.remove("cursor-hover")
     }
-  }, [])
+  }, [low])
 
-  if (!enabled) return null
+  if (low) return null
 
   return (
     <>
