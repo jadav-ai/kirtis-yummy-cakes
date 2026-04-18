@@ -1,0 +1,401 @@
+@import 'tailwindcss';
+
+/* ============================================
+   KIRTI'S YUMMY CAKES — DESIGN TOKENS
+============================================ */
+:root {
+  /* brand palette */
+  --cream: #fff8f0;
+  --blush: #f4a7b9;
+  --rose: #e8849a;
+  --champagne: #d4af37;
+  --gold-light: #edd97a;
+  --dark-rose: #2d1018;
+  --void: #1a0a0e;
+  --ivory: #fdfaf6;
+  --muted: #9c7c85;
+  --glass-warm: rgba(255, 248, 240, 0.07);
+  --glass-dark: rgba(45, 16, 24, 0.65);
+
+  /* shadcn compat tokens mapped to brand */
+  --background: var(--cream);
+  --foreground: var(--dark-rose);
+  --card: var(--cream);
+  --card-foreground: var(--dark-rose);
+  --popover: var(--cream);
+  --popover-foreground: var(--dark-rose);
+  --primary: var(--blush);
+  --primary-foreground: var(--void);
+  --secondary: var(--champagne);
+  --secondary-foreground: var(--void);
+  --muted-bg: #f2e6e0;
+  --muted-foreground: var(--muted);
+  --accent: var(--champagne);
+  --accent-foreground: var(--void);
+  --destructive: #b3294e;
+  --destructive-foreground: var(--ivory);
+  --border: rgba(212, 175, 55, 0.25);
+  --input: rgba(212, 175, 55, 0.2);
+  --ring: var(--champagne);
+  --radius: 0.25rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+  --font-script: var(--font-great-vibes), cursive;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted-bg);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-champagne: var(--champagne);
+  --color-gold-light: var(--gold-light);
+  --color-dark-rose: var(--dark-rose);
+  --color-void: var(--void);
+  --color-ivory: var(--ivory);
+  --color-soft-muted: var(--muted);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+/* ============================================
+   BASE
+============================================ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    background-color: var(--cream);
+    scroll-behavior: auto; /* Lenis handles smooth */
+  }
+  body {
+    background-color: var(--cream);
+    color: var(--dark-rose);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* hide default cursor everywhere on desktop */
+  @media (hover: hover) and (pointer: fine) {
+    html,
+    body,
+    a,
+    button,
+    [role='button'] {
+      cursor: none !important;
+    }
+  }
+}
+
+/* ============================================
+   GRAIN OVERLAY (global analog texture)
+============================================ */
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+.grain-dark::after {
+  opacity: 0.065;
+}
+
+/* ============================================
+   AURORA MESH GRADIENT (dark sections)
+============================================ */
+.aurora-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(at 20% 30%, rgba(45, 16, 24, 0.9) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(109, 32, 54, 0.7) 0px, transparent 50%),
+    radial-gradient(at 70% 80%, rgba(26, 10, 14, 1) 0px, transparent 60%),
+    radial-gradient(at 30% 90%, rgba(75, 20, 35, 0.8) 0px, transparent 55%),
+    linear-gradient(135deg, var(--void) 0%, var(--dark-rose) 100%);
+  background-size: 200% 200%;
+  animation: aurora 14s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes aurora {
+  0% {
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(8deg);
+  }
+  100% {
+    background-position: 50% 100%;
+    filter: hue-rotate(-6deg);
+  }
+}
+
+/* ============================================
+   CUSTOM CURSOR
+============================================ */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: normal;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--champagne);
+  border-radius: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.cursor-ring {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--blush);
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: translate3d(-50%, -50%, 0);
+  transition:
+    width 0.3s cubic-bezier(0.76, 0, 0.24, 1),
+    height 0.3s cubic-bezier(0.76, 0, 0.24, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ivory);
+  text-transform: uppercase;
+}
+.cursor-ring::after {
+  content: attr(data-label);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-hover .cursor-ring {
+  width: 72px;
+  height: 72px;
+  background: rgba(244, 167, 185, 0.15);
+  border-color: rgba(244, 167, 185, 0.6);
+  opacity: 1;
+}
+.cursor-hover .cursor-ring::after {
+  opacity: 1;
+}
+.cursor-hover .cursor-dot {
+  opacity: 0;
+}
+
+/* ============================================
+   SHIMMER / SHEEN / PULSE EFFECTS
+============================================ */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+.gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.gold-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(237, 217, 122, 0.45) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%) skewX(-20deg);
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+}
+.gold-shimmer:hover::after {
+  transform: translateX(200%) skewX(-20deg);
+}
+
+@keyframes bobbing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.bob {
+  animation: bobbing 3s ease-in-out infinite;
+}
+.bob-slow {
+  animation: bobbing 5s ease-in-out infinite;
+}
+.bob-slower {
+  animation: bobbing 4.2s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+@keyframes scrollDot {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+.scroll-dot {
+  animation: scrollDot 2.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 36px 8px rgba(37, 211, 102, 0.35);
+  }
+}
+.pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseBlush {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px 6px rgba(212, 175, 55, 0.3);
+  }
+}
+.pulse-blush {
+  animation: pulseBlush 3s ease-in-out infinite;
+}
+
+/* ============================================
+   MARQUEE
+============================================ */
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.marquee-track-left {
+  animation: marqueeLeft 45s linear infinite;
+}
+.marquee-track-right {
+  animation: marqueeRight 45s linear infinite;
+}
+.marquee-pause:hover .marquee-track-left,
+.marquee-pause:hover .marquee-track-right {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   GOLD SHIMMER RULE (footer)
+============================================ */
+@keyframes goldRuleShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.gold-rule {
+  height: 1px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0) 0%,
+    rgba(212, 175, 55, 0.6) 50%,
+    rgba(212, 175, 55, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: goldRuleShimmer 6s ease-in-out infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY
+============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* selection */
+::selection {
+  background: var(--blush);
+  color: var(--void);
+}
+
+/* scrollbar (since Lenis leaves native one during non-smooth fallback) */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
