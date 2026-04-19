@@ -42,22 +42,26 @@ export function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* LEFT — image */}
           <div className="relative">
-            <motion.div
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-              className="relative aspect-[4/5] w-full overflow-hidden"
-            >
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
               <Image
                 src="/images/kirti-avatar.png"
                 alt="Kirti, founder of Kirti's Yummy Cakes, smiling while holding one of her handcrafted two-tier cakes"
                 fill
-                className="object-cover object-center"
+                className="object-cover object-top"
                 sizes="(min-width: 768px) 45vw, 100vw"
                 priority
               />
-            </motion.div>
+              {/* Reveal curtain — animates up, leaving image visible even if animation fails */}
+              <motion.div
+                aria-hidden="true"
+                initial={{ y: "0%" }}
+                whileInView={{ y: "-101%" }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+                className="absolute inset-0 z-10"
+                style={{ backgroundColor: "var(--dark-rose)" }}
+              />
+            </div>
 
             {/* Gold corner flourish */}
             <svg
