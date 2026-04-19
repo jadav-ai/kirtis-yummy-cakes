@@ -50,11 +50,12 @@ export function About() {
               className="relative aspect-[4/5] w-full overflow-hidden"
             >
               <Image
-                src="/images/about-kirti.jpg"
-                alt="Kirti's hands piping delicate cream rosettes onto a pastel cake"
+                src="/images/kirti-avatar.png"
+                alt="Kirti, founder of Kirti's Yummy Cakes, smiling while holding one of her handcrafted two-tier cakes"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 sizes="(min-width: 768px) 45vw, 100vw"
+                priority
               />
             </motion.div>
 
