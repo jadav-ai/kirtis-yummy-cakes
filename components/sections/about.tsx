@@ -44,10 +44,10 @@ export function About() {
           <div className="relative">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
               <Image
-                src="/images/kirti-avatar.png"
-                alt="Kirti, founder of Kirti's Cake Studio, smiling while holding one of her handcrafted two-tier cakes"
+                src="/images/kirti-studio.jpg"
+                alt="Kirti in her modern cake studio, carefully decorating an elegant two-tier cake with precision and artistry"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-center"
                 sizes="(min-width: 768px) 45vw, 100vw"
                 priority
               />
