@@ -9,8 +9,8 @@ const ITEMS = [
     a: "We recommend at least 3–5 days for most cakes. For wedding or large tiered cakes, 1–2 weeks ensures we can perfect every detail for you.",
   },
   {
-    q: "Do you offer eggless options for all types?",
-    a: "Absolutely! Every single cake in our collection can be made fully eggless — without any compromise on taste, texture, or that perfect moist crumb.",
+    q: "Are all your cakes vegetarian?",
+    a: "Yes, 100% vegetarian! All our cakes are crafted with plant-based or dairy ingredients. We also offer fully vegan options — just let us know your preference when you order.",
   },
   {
     q: "Can I share a photo reference for a design?",

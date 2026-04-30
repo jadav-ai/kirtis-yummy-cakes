@@ -25,7 +25,7 @@ const REVIEWS: Review[] = [
   },
   {
     quote:
-      "The eggless chocolate drip cake was so incredibly moist and rich — our entire family is completely obsessed. Ordering again!",
+      "The vegan chocolate drip cake was so incredibly moist and rich — our entire family is completely obsessed. Ordering again!",
     name: "MEERA P.",
     cake: "Drip & Choco Cake",
   },

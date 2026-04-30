@@ -70,11 +70,11 @@ const CAKES: Cake[] = [
   },
   {
     num: "07",
-    title: "Eggless & Vegan Cakes",
+    title: "Vegan Cakes",
     image: "/images/cake-07.jpg",
-    specs: ["INCLUSIVE", "EGGLESS", "FULL FLAVOUR"],
+    specs: ["INCLUSIVE", "VEGAN", "FULL FLAVOUR"],
     description:
-      "Because everyone deserves a slice of joy. The same moist, fluffy, flavour-packed experience — crafted without compromise, inclusive for every guest at your table.",
+      "Because everyone deserves a slice of joy. The same moist, fluffy, flavour-packed experience — crafted with plant-based love, inclusive for every guest at your table.",
   },
   {
     num: "08",

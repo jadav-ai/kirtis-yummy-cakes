@@ -28,7 +28,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Kirti's Cake Studio — Handcrafted Cakes, Baked With Love",
   description:
-    "Premium homemade cakes crafted by Kirti in India. 3D sculpted, fondant, tiered wedding, drip, cupcake tower, eggless and theme cakes. Order directly on WhatsApp.",
+    "Premium homemade cakes crafted by Kirti in India. 3D sculpted, fondant, tiered wedding, drip, cupcake tower, and theme cakes. 100% vegetarian & vegan options. Order directly on WhatsApp.",
   generator: "v0.app",
   openGraph: {
     title: "Kirti's Cake Studio",

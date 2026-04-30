@@ -156,7 +156,7 @@ export function Hero() {
               className="bob-slower inline-flex items-center gap-2 px-4 py-2 rounded-full text-[12px] tracking-wide"
               style={{ background: "var(--champagne)", color: "var(--void)" }}
             >
-              🌿 Eggless Options
+              🌿 100% Vegetarian
             </span>
           </motion.div>
 
