@@ -62,7 +62,7 @@ export function SiteHeader() {
             className="font-serif font-medium text-[14px] md:text-[16px] tracking-[0.25em]"
             style={{ color: "var(--champagne)" }}
           >
-            KYC
+            KCS
           </a>
 
           {/* Desktop nav */}
