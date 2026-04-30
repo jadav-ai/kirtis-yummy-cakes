@@ -92,7 +92,7 @@ export function About() {
               🧈
             </div>
             <div className="absolute top-8 -right-8 text-3xl bob-slow" aria-hidden="true">
-              🥚
+              🌿
             </div>
             <div className="absolute top-1/2 -left-8 text-3xl bob-slower" aria-hidden="true">
               🍰
