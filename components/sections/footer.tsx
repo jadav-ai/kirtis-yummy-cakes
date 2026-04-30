@@ -20,7 +20,7 @@ export function Footer() {
             className="font-script text-[36px] md:text-[44px] leading-none"
             style={{ color: "var(--champagne)" }}
           >
-            Kirti&apos;s Yummy Cakes
+            Kirti&apos;s Cake Studio
           </h3>
           <p
             className="mt-3 text-[13px] tracking-wide"
@@ -50,7 +50,7 @@ export function Footer() {
 
           <div className="mt-6 flex flex-col gap-1.5">
             <p className="text-[11px]" style={{ color: "rgba(253,250,246,0.3)" }}>
-              © 2025 Kirti&apos;s Yummy Cakes · All rights reserved
+              © 2025 Kirti&apos;s Cake Studio · All rights reserved
             </p>
             <p
               className="text-[11px] tracking-wide"

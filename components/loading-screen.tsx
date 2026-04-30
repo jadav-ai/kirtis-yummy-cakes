@@ -38,7 +38,7 @@ export function LoadingScreen() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.6, ease: [0.76, 0, 0.24, 1] }}
             >
-              Kirti&apos;s Yummy Cakes
+              Kirti&apos;s Cake Studio
             </motion.h1>
 
             <motion.div

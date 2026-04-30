@@ -208,7 +208,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           className="text-[10px] tracking-[0.35em] uppercase pt-6"
           style={{ color: "var(--muted)" }}
         >
-          Kirti&apos;s Yummy Cakes · India
+          Kirti&apos;s Cake Studio · India
         </div>
       </motion.div>
     </motion.div>

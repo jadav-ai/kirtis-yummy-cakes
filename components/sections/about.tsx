@@ -45,7 +45,7 @@ export function About() {
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
               <Image
                 src="/images/kirti-avatar.png"
-                alt="Kirti, founder of Kirti's Yummy Cakes, smiling while holding one of her handcrafted two-tier cakes"
+                alt="Kirti, founder of Kirti's Cake Studio, smiling while holding one of her handcrafted two-tier cakes"
                 fill
                 className="object-cover object-top"
                 sizes="(min-width: 768px) 45vw, 100vw"
