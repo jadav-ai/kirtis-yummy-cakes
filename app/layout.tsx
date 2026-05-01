@@ -35,6 +35,10 @@ export const metadata: Metadata = {
     description: "Every cake is a memory. Handcrafted with love — order on WhatsApp.",
     type: "website",
   },
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 }
 
 export const viewport: Viewport = {
