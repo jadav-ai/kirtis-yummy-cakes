@@ -176,7 +176,7 @@ function CakeCard({ cake, tilt }: { cake: Cake; tilt: boolean }) {
           </div>
 
           <a
-            href="https://wa.me/91XXXXXXXXXX"
+            href="https://wa.me/917990797634"
             target="_blank"
             rel="noopener noreferrer"
             className="relative mt-5 inline-flex items-center gap-2 font-serif italic text-[15px] group"
@@ -251,7 +251,7 @@ export function CakeShowcase() {
           Our Signature Creations
         </p>
         <h2
-          className="font-serif text-[44px] md:text-[72px] lg:text-[96px] leading-[1.02] text-balance"
+          className="font-serif text-[11vw] sm:text-[44px] md:text-[72px] lg:text-[96px] leading-[1.02] text-balance"
           style={{ color: "var(--dark-rose)" }}
         >
           Eight Ways to

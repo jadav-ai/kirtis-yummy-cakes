@@ -59,7 +59,7 @@ export function LoadingScreen() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 2 }}
             >
-              Handcrafted with Love · India
+              Handcrafted with Love · VADODARA
             </motion.p>
           </motion.div>
         </motion.div>

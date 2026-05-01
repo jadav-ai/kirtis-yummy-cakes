@@ -88,7 +88,7 @@ export function Stats() {
               ].join(" ")}
             >
               <div
-                className="font-serif text-[72px] md:text-[104px] lg:text-[128px] leading-none"
+                className="font-serif text-[18vw] sm:text-[72px] md:text-[104px] lg:text-[128px] leading-none"
                 style={{ color: "var(--champagne)" }}
               >
                 <PinnedCount

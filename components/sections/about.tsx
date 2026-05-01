@@ -44,7 +44,7 @@ export function About() {
           <div className="relative">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
               <Image
-                src="/images/kirti-studio.jpg"
+                src="/images/web_optimized.jpeg"
                 alt="Kirti in her modern cake studio, carefully decorating an elegant two-tier cake with precision and artistry"
                 fill
                 className="object-cover object-center"
@@ -147,22 +147,26 @@ export function About() {
               </span>
             </h2>
 
-            <p
-              className="mt-8 max-w-[460px] text-[16px] leading-[1.9]"
+            <div
+              className="mt-8 max-w-[460px] text-[16px] leading-[1.9] space-y-4"
               style={{ color: "var(--muted)" }}
             >
-              Hi, I&apos;m Kirti — and I&apos;ve been baking joy for over a decade. What started as
-              a passion for creating birthday surprises for my family slowly became something I
-              couldn&apos;t stop doing. Every cake I make is built from scratch, with the finest
-              ingredients and an obsessive eye for detail. No shortcuts. No compromises. Just pure,
-              honest love in every layer.
-            </p>
+              <p>
+                My path as a home baker started with a few simple ingredients: a love for baking and the determination to build something of my own as a woman entrepreneur. Balancing life&apos;s responsibilities wasn&apos;t always easy, but every order I took was a lesson in precision and passion.
+              </p>
+              <p>
+                Within a year, thanks to the incredible support of customers who kept coming back for more, my small home venture blossomed into a success story. This success sparked a new passion: teaching. I wanted to show other women that they, too, could turn their kitchen dreams into reality.
+              </p>
+              <p>
+                I am now honored to have taught over 1,000 students globally. Whether I&apos;m decorating a bespoke cake or mentoring a new baker, my goal remains the same: to share the joy of this art and prove that every great story starts with a single, courageous step.
+              </p>
+            </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3 md:gap-5 mt-10">
               {[
+                { n: 1000, suffix: "+", label: "Global Students" },
                 { n: 500, suffix: "+", label: "Happy Customers" },
-                { n: 8, suffix: "+", label: "Cake Varieties" },
                 { n: 4.9, suffix: "★", label: "Average Rating", decimals: 1 },
               ].map((s, i) => (
                 <motion.div
@@ -176,7 +180,7 @@ export function About() {
                 >
                   <div
                     className="font-serif text-[32px] md:text-[44px] leading-none"
-                    style={{ color: "var(--champagne)" }}
+                    style={{ color: "var(--dark-rose)" }}
                   >
                     <Counter to={s.n} suffix={s.suffix} decimals={s.decimals ?? 0} />
                   </div>

@@ -92,7 +92,7 @@ export function Storytelling() {
         <div className="relative z-10 max-w-[1200px] px-6 text-center">
           <div ref={step1} className="absolute inset-0 flex items-center justify-center">
             <h2
-              className="font-serif font-light text-[54px] md:text-[92px] lg:text-[118px] leading-[0.95] text-balance"
+              className="font-serif font-light text-[12vw] sm:text-[54px] md:text-[92px] lg:text-[118px] leading-[0.95] text-balance"
               style={{ color: "var(--ivory)" }}
             >
               NOT JUST CAKE.
@@ -104,7 +104,7 @@ export function Storytelling() {
             className="absolute inset-0 flex flex-col items-center justify-center gap-6"
           >
             <h2
-              className="font-serif italic text-[56px] md:text-[100px] lg:text-[130px] leading-[0.95] text-balance"
+              className="font-serif italic text-[12vw] sm:text-[56px] md:text-[100px] lg:text-[130px] leading-[0.95] text-balance"
               style={{ color: "var(--blush)" }}
             >
               A LOVE LANGUAGE.
@@ -122,13 +122,13 @@ export function Storytelling() {
             className="absolute inset-0 flex flex-col items-center justify-center gap-2"
           >
             <h2
-              className="font-serif text-[48px] md:text-[80px] lg:text-[108px] leading-[0.95] text-balance"
+              className="font-serif text-[11vw] sm:text-[48px] md:text-[80px] lg:text-[108px] leading-[0.95] text-balance"
               style={{ color: "var(--champagne)" }}
             >
               YOUR MOMENT.
             </h2>
             <h2
-              className="font-serif italic text-[40px] md:text-[72px] lg:text-[96px] leading-[0.95] text-balance"
+              className="font-serif italic text-[10vw] sm:text-[40px] md:text-[72px] lg:text-[96px] leading-[0.95] text-balance"
               style={{ color: "var(--gold-light)" }}
             >
               HER MASTERPIECE.

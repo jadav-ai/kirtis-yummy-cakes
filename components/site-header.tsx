@@ -138,7 +138,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     { label: "ABOUT", href: "#about" },
     { label: "REVIEWS", href: "#reviews" },
     { label: "FAQ", href: "#faq" },
-    { label: "ORDER", href: "https://wa.me/91XXXXXXXXXX" },
+    { label: "ORDER", href: "https://wa.me/917990797634" },
+    { label: "INSTAGRAM", href: "https://www.instagram.com/kirtis_yummy_cake_class/" },
   ]
   return (
     <motion.div
@@ -208,7 +209,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           className="text-[10px] tracking-[0.35em] uppercase pt-6"
           style={{ color: "var(--muted)" }}
         >
-          Kirti&apos;s Cake Studio · India
+          Kirti&apos;s Cake Studio · Vadodara
         </div>
       </motion.div>
     </motion.div>

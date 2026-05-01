@@ -32,7 +32,7 @@ function SplitLine({
   const words = text.split(" ")
   return (
     <div
-      className={`font-serif font-light leading-[0.88] text-[68px] md:text-[110px] lg:text-[148px] ${className}`}
+      className={`font-serif font-light leading-[0.88] text-[13vw] sm:text-[68px] md:text-[110px] lg:text-[148px] ${className}`}
       style={{ overflow: "hidden" }}
     >
       <span className="inline-flex flex-wrap gap-x-4">
@@ -122,7 +122,7 @@ export function Hero() {
             className="text-[10px] tracking-[0.45em] uppercase mb-6"
             style={{ color: "var(--champagne)" }}
           >
-            Handcrafted with Love · India
+            Handcrafted with Love · VADODARA
           </motion.p>
 
           <SplitLine text={LINES[0].text} className={LINES[0].className} baseDelay={2.9} />

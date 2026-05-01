@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 type Review = { quote: string; name: string; cake: string }
 
@@ -42,6 +43,110 @@ const REVIEWS: Review[] = [
     cake: "Cupcake Tower",
   },
 ]
+
+function FeaturedReview() {
+  return (
+    <div className="mx-auto max-w-[1000px] mb-24 md:mb-32 flex flex-col md:flex-row items-center gap-10 md:gap-16 px-6">
+      <motion.div 
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="w-full md:w-1/2 flex justify-center"
+      >
+        <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+          <Image 
+            src="/images/reviews/irfan-pathan.jpg" 
+            alt="Irfan Pathan with Kirti's Cake" 
+            fill 
+            className="object-cover" 
+            sizes="(max-width: 768px) 100vw, 380px"
+          />
+          <div className="absolute inset-0 ring-1 ring-inset ring-[rgba(255,255,255,0.2)] rounded-2xl"></div>
+        </div>
+      </motion.div>
+      <motion.div 
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        className="w-full md:w-1/2 text-center md:text-left"
+      >
+        <h3 className="text-[12px] tracking-[0.2em] uppercase mb-4" style={{ color: "var(--champagne)" }}>
+          Featured Customer
+        </h3>
+        <p className="font-serif italic text-[28px] md:text-[36px] leading-[1.3]" style={{ color: "var(--dark-rose)" }}>
+          "Trusted by Celebrities. Loved by Everyone."
+        </p>
+        <p className="mt-6 text-[15px] leading-relaxed" style={{ color: "var(--muted)" }}>
+          We were honored to bake a special birthday cake for former Indian cricketer Irfan Pathan. Every cake we make receives the same star treatment and dedication to perfection.
+        </p>
+        <div className="mt-8">
+          <div className="text-[18px] font-medium tracking-wide" style={{ color: "var(--void)" }}>
+            Irfan Pathan
+          </div>
+          <div className="text-[13px] mt-1" style={{ color: "var(--champagne)" }}>
+            Former Indian Cricketer
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function WhatsAppGallery() {
+  const screenshots = [
+    "/images/reviews/wa-1.jpg", 
+    "/images/reviews/wa-2.jpg", 
+    "/images/reviews/wa-3.jpg", 
+    "/images/reviews/wa-4.jpg"
+  ]
+  return (
+    <div className="mb-24 md:mb-32">
+      <div className="text-center mb-12 px-6">
+        <h3 className="font-serif italic text-[28px] md:text-[36px] leading-[1.3]" style={{ color: "var(--dark-rose)" }}>
+          Real Words. Real Smiles.
+        </h3>
+        <p className="text-[13px] mt-3 tracking-[0.1em] uppercase" style={{ color: "var(--champagne)" }}>
+          Straight from our WhatsApp chats
+        </p>
+      </div>
+      
+      {/* Hide scrollbar with inline styles or custom class */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+      `}} />
+      
+      <div className="flex overflow-x-auto hide-scroll snap-x snap-mandatory px-6 md:px-12 pb-10 gap-6 md:gap-8 items-center">
+        {/* Empty spacer for centering first item on mobile if needed */}
+        <div className="shrink-0 w-1 md:w-[10vw] snap-center"></div>
+        
+        {screenshots.map((src, i) => (
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="shrink-0 w-[260px] md:w-[300px] snap-center relative rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-2 duration-300 border border-[rgba(212,175,55,0.1)]"
+          >
+            <Image 
+              src={src} 
+              alt={`Customer WhatsApp Review ${i+1}`} 
+              width={300} 
+              height={600} 
+              className="w-full h-auto object-cover" 
+            />
+          </motion.div>
+        ))}
+        
+        {/* Empty spacer for centering last item on mobile if needed */}
+        <div className="shrink-0 w-1 md:w-[10vw] snap-center"></div>
+      </div>
+    </div>
+  )
+}
 
 function Card({ r }: { r: Review }) {
   return (
@@ -105,7 +210,7 @@ export function Testimonials() {
       className="relative w-full py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: "var(--cream)" }}
     >
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 text-center mb-14 md:mb-20">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 text-center mb-16 md:mb-24">
         <h2
           className="font-serif text-[44px] md:text-[64px] lg:text-[80px] leading-[1.02] text-balance"
           style={{ color: "var(--dark-rose)" }}
@@ -133,7 +238,16 @@ export function Testimonials() {
         </h2>
       </div>
 
+      <FeaturedReview />
+      
+      <WhatsAppGallery />
+
       <div className="flex flex-col gap-6">
+        <div className="text-center mb-6">
+           <h3 className="text-[12px] tracking-[0.2em] uppercase" style={{ color: "var(--champagne)" }}>
+             More Sweet Words
+           </h3>
+        </div>
         <Row items={REVIEWS} dir="left" />
         <Row items={[...REVIEWS].reverse()} dir="right" />
       </div>

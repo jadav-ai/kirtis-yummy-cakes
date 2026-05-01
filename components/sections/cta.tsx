@@ -7,6 +7,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ParticlesBg } from "../particles-bg"
 import { WhatsAppButton } from "../whatsapp-button"
+import { InstagramButton } from "../instagram-button"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -71,7 +72,7 @@ export function Cta() {
         </motion.p>
 
         <h2
-          className="font-serif text-[48px] md:text-[76px] lg:text-[100px] leading-[0.95] text-balance"
+          className="font-serif text-[11vw] sm:text-[48px] md:text-[76px] lg:text-[100px] leading-[0.95] text-balance"
           style={{ color: "var(--ivory)" }}
         >
           <motion.span
@@ -124,17 +125,26 @@ export function Cta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.8 }}
-          className="mt-12 inline-block"
+          className="mt-12 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6"
         >
           <WhatsAppButton
             variant="green"
             showIcon
             magneticStrength={22}
             spring={{ stiffness: 100, damping: 10 }}
-            className="px-10 md:px-13 py-5 text-[18px] md:text-[19px]"
+            className="px-8 md:px-10 py-4 md:py-5 text-[16px] md:text-[18px]"
           >
             ORDER ON WHATSAPP
           </WhatsAppButton>
+          <InstagramButton
+            variant="gradient"
+            showIcon
+            magneticStrength={22}
+            spring={{ stiffness: 100, damping: 10 }}
+            className="px-8 md:px-10 py-4 md:py-5 text-[16px] md:text-[18px]"
+          >
+            FOLLOW ON INSTAGRAM
+          </InstagramButton>
         </motion.div>
       </div>
     </section>

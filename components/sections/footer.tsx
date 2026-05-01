@@ -8,6 +8,7 @@ const NAV = [
   { label: "REVIEWS", href: "#reviews" },
   { label: "FAQ", href: "#faq" },
   { label: "ORDER", href: WA_LINK, external: true },
+  { label: "INSTAGRAM", href: "https://www.instagram.com/kirtis_yummy_cake_class/", external: true },
 ]
 
 export function Footer() {
@@ -28,6 +29,15 @@ export function Footer() {
           >
             Baked fresh. Served with love.
           </p>
+
+          <div 
+            className="mt-6 mx-auto max-w-[400px] text-[13px] leading-relaxed"
+            style={{ color: "rgba(253,250,246,0.6)" }}
+          >
+            Shop No 6, 1st Floor, 30 Meter Road,<br />
+            Opposite Billabong School, Vadsar, Kalali,<br />
+            Vadodara, Gujarat 390010
+          </div>
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-8">
             {NAV.map((n) => (
@@ -50,13 +60,13 @@ export function Footer() {
 
           <div className="mt-6 flex flex-col gap-1.5">
             <p className="text-[11px]" style={{ color: "rgba(253,250,246,0.3)" }}>
-              © 2025 Kirti&apos;s Cake Studio · All rights reserved
+              © 2026 Kirti&apos;s Cake Studio · All rights reserved
             </p>
             <p
               className="text-[11px] tracking-wide"
               style={{ color: "rgba(253,250,246,0.35)" }}
             >
-              Handcrafted with ♥ in India
+              Handcrafted with ♥ in Vadodara
             </p>
           </div>
         </div>
