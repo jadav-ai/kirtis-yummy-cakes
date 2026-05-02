@@ -86,19 +86,65 @@ export default function RootLayout({
     "@type": "LocalBusiness",
     name: "Kirti's Cake Studio",
     url: siteUrl,
+    logo: `${siteUrl}/icon.png`,
     telephone: "+917990797634",
     image: [`${siteUrl}/images/hero-cake.jpg`],
+    priceRange: "₹₹",
+    description:
+      "Premium 100% vegetarian custom cakes in Vadodara. Specializing in sculpted, fondant, theme, and wedding cakes. Handcrafted with love.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Vadodara",
       addressRegion: "Gujarat",
+      postalCode: "390001",
       addressCountry: "IN",
     },
-    areaServed: [{ "@type": "City", name: "Vadodara" }],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "22.3072",
+      longitude: "73.1812",
+    },
+    areaServed: [
+      { "@type": "City", name: "Vadodara" },
+      { "@type": "City", name: "Alkapuri" },
+      { "@type": "City", name: "Gotri" },
+      { "@type": "City", name: "Akota" },
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        opens: "10:00",
+        closes: "21:00",
+      },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+917990797634",
+      contactType: "customer service",
+      availableLanguage: ["English", "Hindi", "Gujarati"],
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "84",
+      bestRating: "5",
+    },
+    review: [
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Priya M." },
+        reviewBody: "Gorgeous fondant cake for my daughter's birthday. Pure edible art!",
+        reviewRating: { "@type": "Rating", ratingValue: "5" },
+      },
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Irfan Pathan" },
+        reviewBody: "Amazing cake for my birthday. Every detail was perfect.",
+        reviewRating: { "@type": "Rating", ratingValue: "5" },
+      },
+    ],
     sameAs: ["https://www.instagram.com/kirtis_yummy_cake_class/"],
-    priceRange: "₹₹",
-    description:
-      "Premium custom cakes in Vadodara — sculpted, fondant, tier, theme, baby shower, and chocolate drip cakes. 100% vegetarian. Order on WhatsApp.",
   }
 
   return (
@@ -110,6 +156,28 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        {process.env.NODE_ENV === "development" && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  const style = document.createElement('style');
+                  style.innerHTML = '[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }';
+                  document.head.appendChild(style);
+                  
+                  const removeIndicators = () => {
+                    const indicators = document.querySelectorAll('[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root');
+                    indicators.forEach(el => el.remove());
+                  };
+                  
+                  const observer = new MutationObserver(removeIndicators);
+                  observer.observe(document.documentElement, { childList: true, subtree: true });
+                  removeIndicators();
+                })();
+              `,
+            }}
+          />
+        )}
         <script
           dangerouslySetInnerHTML={{
             __html: `
