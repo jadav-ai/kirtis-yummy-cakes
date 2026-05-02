@@ -44,7 +44,7 @@ export function About() {
           <div className="relative">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm">
               <Image
-                src="/images/about-kirti-final.png"
+                src="/images/about-kirti-v2.jpg"
                 alt="Kirti with a beautiful three-tier cake, representing her artistry and dedication to custom cake design"
                 fill
                 className="object-cover object-center"
