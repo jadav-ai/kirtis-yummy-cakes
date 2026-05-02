@@ -110,28 +110,20 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
-        {process.env.NODE_ENV === "development" && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function() {
-                  const style = document.createElement('style');
-                  style.innerHTML = '[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }';
-                  document.head.appendChild(style);
-                  
-                  const removeIndicators = () => {
-                    const indicators = document.querySelectorAll('[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root');
-                    indicators.forEach(el => el.remove());
-                  };
-                  
-                  const observer = new MutationObserver(removeIndicators);
-                  observer.observe(document.documentElement, { childList: true, subtree: true });
-                  removeIndicators();
-                })();
-              `,
-            }}
-          />
-        )}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function() {
+                const loader = document.getElementById('global-loader');
+                if (loader) {
+                  loader.style.display = 'none';
+                  document.body.style.overflow = '';
+                  document.documentElement.style.overflow = '';
+                }
+              });
+            `,
+          }}
+        />
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

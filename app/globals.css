@@ -429,23 +429,6 @@
   scrollbar-width: none;
 }
 
-/* ============================================
-   NEXT.JS DEV OVERLAY HIDING
-============================================ */
-.nextjs-static-indicator-container,
-#nextjs-static-indicator-root,
-[data-nextjs-toast-errors-parent],
-[data-nextjs-static-indicator],
-[data-nextjs-static-indicator-container],
-.nextjs-toast-errors-parent,
-#nextjs-toast-errors {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
 
 /* selection */
 ::selection {
