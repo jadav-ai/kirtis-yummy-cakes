@@ -152,7 +152,7 @@ export function About() {
               style={{ color: "var(--muted)" }}
             >
               <p>
-                My path as a home baker started with a few simple ingredients: a love for baking and the determination to build something of my own as a woman entrepreneur. Balancing life&apos;s responsibilities wasn&apos;t always easy, but every order I took was a lesson in precision and passion.
+                Hi, I&apos;m Kirti. My path as a home baker started with a few simple ingredients: a love for baking and the determination to build something of my own as a woman entrepreneur. Balancing life&apos;s responsibilities wasn&apos;t always easy, but every order I took was a lesson in precision and passion.
               </p>
               <p>
                 Within a year, thanks to the incredible support of customers who kept coming back for more, my small home venture blossomed into a success story. This success sparked a new passion: teaching. I wanted to show other women that they, too, could turn their kitchen dreams into reality.
