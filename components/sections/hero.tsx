@@ -118,21 +118,21 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.9 }}
+            transition={{ duration: 0.8, delay: 1.6 }}
             className="text-[10px] tracking-[0.45em] uppercase mb-6"
             style={{ color: "var(--champagne)" }}
           >
             Handcrafted with Love · VADODARA
           </motion.p>
 
-          <SplitLine text={LINES[0].text} className={LINES[0].className} baseDelay={2.9} />
-          <SplitLine text={LINES[1].text} className={LINES[1].className} baseDelay={3.3} />
-          <SplitLine text={LINES[2].text} className={LINES[2].className} baseDelay={3.7} />
+          <SplitLine text={LINES[0].text} className={LINES[0].className} baseDelay={1.6} />
+          <SplitLine text={LINES[1].text} className={LINES[1].className} baseDelay={1.8} />
+          <SplitLine text={LINES[2].text} className={LINES[2].className} baseDelay={2.0} />
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 4.2 }}
+            transition={{ duration: 1, delay: 2.2 }}
             className="mt-8 text-[14px] leading-[1.85] max-w-[380px]"
             style={{ color: "rgba(253,250,246,0.7)" }}
           >
@@ -143,7 +143,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 4.5 }}
+            transition={{ duration: 0.8, delay: 2.4 }}
             className="flex flex-wrap gap-3 mt-8"
           >
             <span
@@ -163,7 +163,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 4.8 }}
+            transition={{ duration: 0.9, delay: 2.6 }}
             className="mt-10"
           >
             <WhatsAppButton

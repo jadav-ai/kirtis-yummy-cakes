@@ -34,7 +34,7 @@ export function SiteHeader() {
       <motion.header
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, delay: 2.8, ease: [0.76, 0, 0.24, 1] }}
+        transition={{ duration: 0.9, delay: 1.6, ease: [0.76, 0, 0.24, 1] }}
         className="fixed top-0 left-0 right-0 z-[60] flex justify-center pointer-events-none"
       >
         <div
@@ -150,7 +150,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     >
       {/* Left darkened page */}
       <motion.div
-        className="flex-[0_0_35%] relative"
+        className="flex-[0_0_20%] relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -159,7 +159,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       />
       {/* Middle panel blush */}
       <motion.div
-        className="flex-[0_0_10%]"
+        className="flex-[0_0_5%]"
         style={{ background: "var(--blush)" }}
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
@@ -168,7 +168,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       />
       {/* Right panel cream + nav */}
       <motion.div
-        className="flex-1 flex flex-col justify-between p-8 pt-20"
+        className="flex-1 flex flex-col justify-between p-6 xs:p-8 pt-20"
         style={{ background: "var(--cream)" }}
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
@@ -178,12 +178,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <button
           aria-label="Close menu"
           onClick={onClose}
-          className="self-end text-[11px] tracking-[0.3em] uppercase px-4 py-2 rounded-full border"
+          className="self-end text-[10px] xs:text-[11px] tracking-[0.3em] uppercase px-4 py-2 rounded-full border"
           style={{ borderColor: "var(--dark-rose)", color: "var(--dark-rose)" }}
         >
           CLOSE ×
         </button>
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-1.5 xs:gap-2">
           {links.map((l, i) => (
             <motion.a
               key={l.href}
@@ -198,15 +198,15 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                 delay: 0.25 + i * 0.07,
                 ease: [0.76, 0, 0.24, 1],
               }}
-              className="font-serif text-[44px] leading-[1.05]"
-              style={{ color: "var(--dark-rose)" }}
+              className="font-serif text-[36px] xs:text-[40px] sm:text-[44px] leading-[1.05] tracking-tight"
+              style={{ color: "var(--dark-rose)", fontFamily: "var(--font-cormorant), serif" }}
             >
               {l.label}
             </motion.a>
           ))}
         </nav>
         <div
-          className="text-[10px] tracking-[0.35em] uppercase pt-6"
+          className="text-[9px] xs:text-[10px] tracking-[0.35em] uppercase pt-6"
           style={{ color: "var(--muted)" }}
         >
           Kirti&apos;s Cake Studio · Vadodara

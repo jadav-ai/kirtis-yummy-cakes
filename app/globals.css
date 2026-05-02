@@ -115,10 +115,6 @@
 /* ============================================
    GRAIN OVERLAY (global analog texture)
 ============================================ */
-/* Scope grain to its containing section and drop the mix-blend-mode — it
-   forces the browser to composite the whole document every frame on
-   integrated GPUs. Plain low-opacity overlay is ~10x cheaper and visually
-   indistinguishable. */
 .grain-overlay::after {
   content: '';
   position: absolute;
@@ -422,6 +418,35 @@
   }
 }
 
+/* ============================================
+   UTILITIES
+============================================ */
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   NEXT.JS DEV OVERLAY HIDING
+============================================ */
+.nextjs-static-indicator-container,
+#nextjs-static-indicator-root,
+[data-nextjs-toast-errors-parent],
+[data-nextjs-static-indicator],
+[data-nextjs-static-indicator-container],
+.nextjs-toast-errors-parent,
+#nextjs-toast-errors {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* selection */
 ::selection {
   background: var(--blush);
@@ -433,5 +458,3 @@
   width: 0;
   height: 0;
 }
-
-nextjs-portal { display: none !important; }

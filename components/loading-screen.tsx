@@ -2,12 +2,15 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { useLowPerf } from "@/hooks/use-low-perf"
 
 export function LoadingScreen() {
   const [done, setDone] = useState(false)
+  const low = useLowPerf()
 
   useEffect(() => {
-    const t = setTimeout(() => setDone(true), 2600)
+    // Reduced from 2.6s to 1.6s. Snappier for mobile, still enough for the "WOW" reveal.
+    const t = setTimeout(() => setDone(true), 1600)
     return () => clearTimeout(t)
   }, [])
 
@@ -23,7 +26,8 @@ export function LoadingScreen() {
           style={{ backgroundColor: "var(--void)" }}
           aria-hidden="true"
         >
-          <div className="aurora-bg" style={{ opacity: 0.5 }} />
+          {/* Skip heavy aurora animation on mobile/low-perf to prevent main-thread blockage */}
+          {!low && <div className="aurora-bg" style={{ opacity: 0.5 }} />}
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -36,7 +40,7 @@ export function LoadingScreen() {
               style={{ color: "var(--champagne)" }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.6, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
             >
               Kirti&apos;s Cake Studio
             </motion.h1>
@@ -49,7 +53,7 @@ export function LoadingScreen() {
               }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 1.6, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.6, delay: 0.8, ease: [0.76, 0, 0.24, 1] }}
             />
 
             <motion.p
@@ -57,7 +61,7 @@ export function LoadingScreen() {
               style={{ color: "rgba(253,250,246,0.5)" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 2 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
             >
               Handcrafted with Love · VADODARA
             </motion.p>

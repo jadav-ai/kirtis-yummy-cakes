@@ -35,6 +35,20 @@ export function Faq() {
       className="relative w-full py-24 md:py-32"
       style={{ backgroundColor: "var(--cream)" }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: ITEMS.map((it) => ({
+              "@type": "Question",
+              name: it.q,
+              acceptedAnswer: { "@type": "Answer", text: it.a },
+            })),
+          }),
+        }}
+      />
       <div className="max-w-[800px] mx-auto px-6 md:px-10">
         <div className="text-center mb-14">
           <h2

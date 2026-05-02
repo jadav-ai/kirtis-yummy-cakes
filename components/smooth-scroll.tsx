@@ -15,7 +15,11 @@ export function SmoothScroll() {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-    if (prefersReduced) return
+    const isTouch =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window)
+
+    if (prefersReduced || isTouch) return
 
     const lenis = new Lenis({
       lerp: 0.075,

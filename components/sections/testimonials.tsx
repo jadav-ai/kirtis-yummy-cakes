@@ -112,13 +112,7 @@ function WhatsAppGallery() {
         </p>
       </div>
       
-      {/* Hide scrollbar with inline styles or custom class */}
-      <style dangerouslySetInnerHTML={{__html: `
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-      `}} />
-      
-      <div className="flex overflow-x-auto hide-scroll snap-x snap-mandatory px-6 md:px-12 pb-10 gap-6 md:gap-8 items-center">
+      <div className="flex overflow-x-auto hide-scroll snap-x snap-mandatory px-6 md:px-12 pb-6 gap-6 md:gap-8 items-center">
         {/* Empty spacer for centering first item on mobile if needed */}
         <div className="shrink-0 w-1 md:w-[10vw] snap-center"></div>
         
@@ -136,13 +130,18 @@ function WhatsAppGallery() {
               alt={`Customer WhatsApp Review ${i+1}`} 
               width={300} 
               height={600} 
-              className="w-full h-auto object-cover" 
+              className="w-full h-auto object-contain" 
             />
           </motion.div>
         ))}
         
         {/* Empty spacer for centering last item on mobile if needed */}
         <div className="shrink-0 w-1 md:w-[10vw] snap-center"></div>
+      </div>
+      
+      {/* Swipe indicator for mobile */}
+      <div className="flex md:hidden justify-center gap-1.5 mt-2 opacity-40">
+        <div className="text-[10px] tracking-[0.2em] uppercase">Swipe to see more</div>
       </div>
     </div>
   )
@@ -248,8 +247,24 @@ export function Testimonials() {
              More Sweet Words
            </h3>
         </div>
-        <Row items={REVIEWS} dir="left" />
-        <Row items={[...REVIEWS].reverse()} dir="right" />
+        
+        {/* Desktop: Marquees */}
+        <div className="hidden md:flex flex-col gap-6">
+          <Row items={REVIEWS} dir="left" />
+          <Row items={[...REVIEWS].reverse()} dir="right" />
+        </div>
+
+        {/* Mobile: Slidable Track */}
+        <div className="flex md:hidden overflow-x-auto hide-scroll snap-x snap-mandatory px-6 pb-6 gap-5">
+          {REVIEWS.map((r, i) => (
+            <div key={`mobile-review-${i}`} className="shrink-0 snap-center">
+              <Card r={r} />
+            </div>
+          ))}
+        </div>
+        <div className="flex md:hidden justify-center gap-1.5 opacity-40">
+           <div className="text-[10px] tracking-[0.2em] uppercase">Swipe to read more</div>
+        </div>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@ import { useEffect, useRef, type MouseEvent } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLowPerf } from "@/hooks/use-low-perf"
+import { InstagramButton } from "@/components/instagram-button"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -15,6 +16,8 @@ type Cake = {
   num: string
   title: string
   image: string
+  alt: string
+  imagePosition?: string
   specs: [string, string, string]
   description: string
 }
@@ -22,75 +25,91 @@ type Cake = {
 const CAKES: Cake[] = [
   {
     num: "01",
-    title: "3D Sculpted Cakes",
-    image: "/images/cake-01.jpg",
-    specs: ["ALL EVENTS", "SCULPTED ART", "CUSTOM"],
+    title: "3D Sculpted Art Cakes",
+    image: "/images/cakes/sculpted/01-hero.png",
+    alt: "Colorful 3D sculpted artistic cake with edible tools and candy accents",
+    imagePosition: "center top",
+    specs: ["SCULPTED ART", "BESPOKE DESIGN", "SHOWPIECE"],
     description:
-      "Why settle for ordinary when you can have extraordinary? Our 3D sculpted cakes are edible masterpieces — carved, shaped and crafted to leave everyone completely speechless.",
+      "For celebrations that deserve a conversation starter. Hand‑sculpted details with playful edible artistry.",
   },
   {
     num: "02",
-    title: "Custom Photo Cakes",
-    image: "/images/cake-02.jpg",
-    specs: ["BIRTHDAYS", "EDIBLE PRINT", "FONDANT"],
+    title: "Kids Theme Cakes",
+    image: "/images/cakes/theme-kids/01-hero.png",
+    alt: "Superhero themed two-tier cake with comic logos and character toppers",
+    imagePosition: "center 38%",
+    specs: ["THEME CAKE", "SUPERHERO", "KIDS PARTY"],
     description:
-      "Your most treasured memories, deliciously preserved. We print your favourite photos with food-safe edible ink onto silky-smooth fondant that makes every moment the centrepiece.",
+      "Bold colors, iconic characters, and sharp fondant detailing for unforgettable reveals.",
   },
   {
     num: "03",
-    title: "Fondant Cakes",
-    image: "/images/cake-03.jpg",
-    specs: ["ALL EVENTS", "HAND-ROLLED", "INTRICATE"],
+    title: "Anniversary Tier Cakes",
+    image: "/images/cakes/anniversary/01-hero.png",
+    alt: "Romantic two-tier anniversary cake with floral accents and gold leaf details",
+    imagePosition: "center 40%",
+    specs: ["ANNIVERSARY", "ELEGANT FLORALS", "MULTI-TIER"],
     description:
-      "Flawlessly smooth, endlessly imaginative. Hand-rolled fondant sheets sculpted with intricate designs and textures that are almost too beautiful to eat — almost.",
+      "Soft palettes, floral romance, and luxe accents designed to mirror your story.",
   },
   {
     num: "04",
-    title: "Tier & Wedding Cakes",
-    image: "/images/cake-04.jpg",
-    specs: ["WEDDINGS", "MULTI-TIER", "FLOWERS & LACE"],
+    title: "Theme Cakes",
+    image: "/images/cakes/theme-space/01-hero.png",
+    alt: "Astronaut themed custom cake with moon surface base and space decorations",
+    imagePosition: "center 30%",
+    specs: ["THEME CAKE", "SPACE STORY", "CUSTOM TOPPERS"],
     description:
-      "Tall, majestic, unforgettable. Our tiered wedding cakes are designed to match your dream day — layered with love, draped in elegance, and filled with flavours that demand a second slice.",
+      "A cinematic space concept with handcrafted toppers and premium finishing.",
   },
   {
     num: "05",
-    title: "Drip & Choco Cakes",
-    image: "/images/cake-05.jpg",
-    specs: ["CELEBRATIONS", "DARK GANACHE", "BERRIES"],
+    title: "Baby Shower Cakes",
+    image: "/images/cakes/baby/01-hero.png",
+    alt: "Pastel pink and blue baby shower tier cake with welcome baby topper",
+    imagePosition: "center 42%",
+    specs: ["BABY SHOWER", "PASTEL FINISH", "WELCOME TOPPER"],
     description:
-      "For the ones who believe chocolate makes everything better. Rich ganache waterfalls, decadent toppings, fresh berries — pure unapologetic bliss on a plate.",
+      "Delicate colors and charming baby motifs crafted for joyful celebrations.",
   },
   {
     num: "06",
-    title: "Cupcake Towers",
-    image: "/images/cake-06.jpg",
-    specs: ["PARTIES", "ROSETTE PIPED", "12 TO 100"],
+    title: "Tier Birthday Cakes",
+    image: "/images/cakes/tier-birthday/01-hero.png",
+    alt: "Elegant white multi-tier milestone birthday cake with floral accents",
+    imagePosition: "center 33%",
+    specs: ["TIER CAKE", "BIRTHDAY", "MILESTONE"],
     description:
-      "A little cake for every guest. Individually piped, beautifully decorated, and stacked into a show-stopping centrepiece that doubles as the most charming dessert table.",
+      "Structured tiers with refined textures for sophisticated milestone setups.",
   },
   {
     num: "07",
-    title: "Vegan Cakes",
-    image: "/images/cake-07.jpg",
-    specs: ["INCLUSIVE", "VEGAN", "FULL FLAVOUR"],
+    title: "Drip & Choco Cakes",
+    image: "/images/cakes/chocolate/01-hero.jpg",
+    alt: "Chocolate drip cake with rich ganache and elegant celebration styling",
+    imagePosition: "center 45%",
+    specs: ["CELEBRATIONS", "DARK GANACHE", "BERRIES"],
     description:
-      "Because everyone deserves a slice of joy. The same moist, fluffy, flavour-packed experience — crafted with plant-based love, inclusive for every guest at your table.",
+      "Rich ganache waterfalls, decadent toppings, pure chocolate‑forward indulgence.",
   },
   {
     num: "08",
     title: "Theme Cakes",
-    image: "/images/cake-08.jpg",
+    image: "/images/cakes/theme-general/01-hero.jpg",
+    alt: "Custom themed birthday cake with decorative fondant elements",
+    imagePosition: "center center",
     specs: ["BIRTHDAYS", "CUSTOM THEME", "YOUR STORY"],
     description:
-      "From birthday bashes to baby showers, our theme cakes bring your wildest vision to life. Unicorns, superheroes, florals — we design around your story, one tier at a time.",
+      "From birthdays to baby showers, each theme cake is designed around your story.",
   },
 ]
 
 function CakeCard({ cake, tilt }: { cake: Cake; tilt: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
+
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
-  // Softer springs: less stiffness = fewer RAF iterations to settle.
   const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), {
     stiffness: 90,
     damping: 18,
@@ -121,70 +140,59 @@ function CakeCard({ cake, tilt }: { cake: Cake; tilt: boolean }) {
       onMouseLeave={tilt ? onLeave : undefined}
       data-cursor-label="EXPLORE"
       style={tilt ? { rotateX, rotateY, transformPerspective: 1200 } : undefined}
-      className="relative shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[74vh] md:h-[82vh] max-h-[760px] flex flex-col"
+      className="relative shrink-0 w-full sm:w-[360px] md:w-[420px] h-[74vh] md:h-[82vh] max-h-[760px] flex flex-col"
     >
-      {/* Number watermark */}
-      <span
-        className="absolute top-2 right-3 font-serif text-[140px] md:text-[180px] leading-none select-none pointer-events-none"
-        style={{ color: "var(--champagne)", opacity: 0.08 }}
-      >
-        {cake.num}
-      </span>
-
-      {/* Image */}
-      <div className="relative flex-[0_0_65%] overflow-hidden gold-shimmer">
+      <div className="relative flex-[0_0_62%] md:flex-[0_0_82%] overflow-hidden gold-shimmer">
         <Image
           src={cake.image}
-          alt={cake.title}
+          alt={cake.alt}
           fill
+          priority={cake.num === "01" || cake.num === "02"}
           className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-[1.05]"
+          style={{ objectPosition: cake.imagePosition ?? "center center" }}
           sizes="(min-width: 1024px) 420px, 360px"
         />
       </div>
 
-      {/* Content */}
-      <div
-        className="flex-1 flex flex-col justify-between p-6 md:p-7"
-        style={{ background: "var(--cream)" }}
-      >
+      <div className="flex min-h-0 flex-1 flex-col justify-between p-5 md:p-6" style={{ background: "var(--cream)" }}>
         <div>
           <h3
-            className="font-serif text-[30px] md:text-[40px] lg:text-[44px] leading-[1.05]"
+            className="font-serif text-[28px] md:text-[34px] lg:text-[38px] leading-[1.05]"
             style={{ color: "var(--dark-rose)" }}
           >
             {cake.title}
           </h3>
           <p
-            className="mt-4 text-[13px] md:text-[14px] leading-[1.7] line-clamp-4"
+            className="mt-3 text-[13px] md:text-[14px] leading-[1.65] line-clamp-3"
             style={{ color: "var(--muted)" }}
           >
             {cake.description}
           </p>
         </div>
-
         <div>
-          <div className="flex flex-wrap gap-1.5 mt-5">
+          <div className="mt-4 flex flex-wrap gap-1 md:gap-1.5">
             {cake.specs.map((s) => (
               <span
                 key={s}
-                className="px-2.5 py-1 rounded-full text-[9px] md:text-[10px] tracking-[0.15em] uppercase"
+                className="rounded-full px-2 py-0.5 text-[9px] tracking-[0.14em] uppercase md:px-2.5 md:py-1 md:text-[10px]"
                 style={{ background: "var(--blush)", color: "var(--void)" }}
               >
                 {s}
               </span>
             ))}
           </div>
-
           <a
-            href="https://wa.me/917990797634"
+            href={`https://wa.me/917990797634?text=${encodeURIComponent(
+              `Hi Kirti, I would like to order your ${cake.title}. Please share size and flavour options.`
+            )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative mt-5 inline-flex items-center gap-2 font-serif italic text-[15px] group"
+            className="group relative mt-5 inline-flex items-center gap-2 font-serif text-[15px] italic outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--champagne)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--cream)]"
             style={{ color: "var(--champagne)" }}
           >
             <span>ORDER THIS →</span>
             <span
-              className="absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100"
+              className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100"
               style={{ background: "var(--champagne)" }}
             />
           </a>
@@ -205,7 +213,8 @@ export function CakeShowcase() {
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 900px)", () => {
-      const track = trackRef.current!
+      const track = trackRef.current
+      if (!track) return
       const totalScroll = track.scrollWidth - window.innerWidth + 80
 
       const tween = gsap.to(track, {
@@ -216,7 +225,6 @@ export function CakeShowcase() {
           start: "top top",
           end: () => `+=${totalScroll}`,
           pin: true,
-          // Tighter scrub = less work per frame on weaker GPUs.
           scrub: 0.6,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
@@ -233,6 +241,8 @@ export function CakeShowcase() {
       }
     })
 
+    ScrollTrigger.refresh()
+
     return () => mm.revert()
   }, [])
 
@@ -242,16 +252,15 @@ export function CakeShowcase() {
       className="relative w-full"
       style={{ backgroundColor: "var(--cream)" }}
     >
-      {/* Heading */}
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-24 md:pt-32 pb-12 md:pb-20 text-center">
+      <div className="mx-auto max-w-[1200px] px-6 pb-8 pt-16 text-center md:px-12 md:pb-12 md:pt-20">
         <p
-          className="text-[10px] tracking-[0.45em] uppercase mb-4"
+          className="mb-4 text-[10px] uppercase tracking-[0.45em]"
           style={{ color: "var(--champagne)" }}
         >
           Our Signature Creations
         </p>
         <h2
-          className="font-serif text-[11vw] sm:text-[44px] md:text-[72px] lg:text-[96px] leading-[1.02] text-balance"
+          className="text-balance font-serif text-[11vw] leading-[1.02] sm:text-[44px] md:text-[72px] lg:text-[96px]"
           style={{ color: "var(--dark-rose)" }}
         >
           Eight Ways to
@@ -260,14 +269,8 @@ export function CakeShowcase() {
             Say I Love You.
           </span>
         </h2>
-        <p
-          className="mt-5 text-[15px]"
-          style={{ color: "var(--muted)" }}
-        >
-          Every category. Every occasion. Every memory.
-        </p>
         <svg
-          className="mx-auto mt-8"
+          className="mx-auto mt-5 md:mt-6"
           width="160"
           height="12"
           viewBox="0 0 160 12"
@@ -279,11 +282,10 @@ export function CakeShowcase() {
         </svg>
       </div>
 
-      {/* Horizontal scroll (desktop) / horizontal scroll-x (mobile fallback) */}
-      <div ref={wrapperRef} className="relative w-full overflow-hidden hidden md:block">
+      <div ref={wrapperRef} className="relative hidden w-full overflow-hidden md:block">
         <div
           ref={trackRef}
-          className="flex gap-7 lg:gap-10 will-change-transform px-12 lg:px-20"
+          className="flex gap-7 px-12 will-change-transform lg:gap-10 lg:px-20"
           style={{ minHeight: "100vh", alignItems: "center" }}
         >
           {CAKES.map((c) => (
@@ -293,10 +295,9 @@ export function CakeShowcase() {
           ))}
         </div>
 
-        {/* Progress bar */}
         <div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-px"
-          style={{ background: "rgba(212,175,55,0.2)" }}
+          className="absolute bottom-6 left-1/2 h-[2px] w-[60%] -translate-x-1/2"
+          style={{ background: "rgba(212,175,55,0.28)" }}
         >
           <div
             ref={progressRef}
@@ -306,13 +307,25 @@ export function CakeShowcase() {
         </div>
       </div>
 
-      {/* Mobile — vertical grid (horizontal pinning is desktop-only) */}
-      <div className="md:hidden grid grid-cols-1 gap-10 px-6 pb-20">
+      <div className="flex overflow-x-auto hide-scroll snap-x snap-mandatory px-6 pb-6 gap-6 md:hidden">
         {CAKES.map((c) => (
-          <div key={c.num} className="group">
+          <div key={c.num} className="shrink-0 w-[85vw] snap-center group">
             <CakeCard cake={c} tilt={false} />
           </div>
         ))}
+      </div>
+      <div className="flex md:hidden justify-center gap-1.5 pb-8 opacity-40">
+        <div className="text-[10px] tracking-[0.2em] uppercase">Swipe to explore</div>
+      </div>
+
+      <div className="pb-12 md:pb-14 text-center">
+        <InstagramButton
+          variant="outline"
+          showIcon
+          className="px-6 py-3 text-[13px] md:text-[14px] !text-[color:var(--dark-rose)] hover:!text-[color:var(--void)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--champagne)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--cream)]"
+        >
+          View More on Instagram
+        </InstagramButton>
       </div>
     </section>
   )

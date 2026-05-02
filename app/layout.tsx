@@ -26,15 +26,42 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Kirti's Cake Studio — Handcrafted Cakes, Baked With Love",
-  description:
-    "Premium homemade cakes crafted by Kirti in Vadodara. 3D sculpted, fondant, tiered wedding, drip, cupcake tower, and theme cakes. 100% vegetarian & vegan options. Order directly on WhatsApp.",
-  generator: "v0.app",
-  openGraph: {
-    title: "Kirti's Cake Studio",
-    description: "Every cake is a memory. Handcrafted with love — order on WhatsApp.",
-    type: "website",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  title: {
+    default: "Kirti's Cake Studio — Custom Cakes in Vadodara",
+    template: "%s | Kirti's Cake Studio",
   },
+  description:
+    "Premium custom cakes in Vadodara by Kirti — sculpted, fondant, tier, theme, baby shower and chocolate drip cakes. 100% vegetarian. Order directly on WhatsApp.",
+  generator: "v0.app",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Kirti's Cake Studio — Custom Cakes in Vadodara",
+    description:
+      "Custom cakes in Vadodara: sculpted, fondant, tier, theme and chocolate drip cakes. Order on WhatsApp.",
+    type: "website",
+    locale: "en_IN",
+    siteName: "Kirti's Cake Studio",
+    images: [{ url: "/images/hero-cake.jpg", width: 1200, height: 630, alt: "Kirti's Cake Studio signature cake" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kirti's Cake Studio — Custom Cakes in Vadodara",
+    description: "Premium custom cakes in Vadodara. Order on WhatsApp.",
+    images: ["/images/hero-cake.jpg"],
+  },
+  keywords: [
+    "custom cakes Vadodara",
+    "best cakes in Vadodara",
+    "cake baker Vadodara",
+    "bakery in Vadodara",
+    "theme cakes Vadodara",
+    "wedding cakes Vadodara",
+    "fondant cakes Vadodara",
+    "chocolate drip cakes Vadodara",
+  ],
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
@@ -52,10 +79,59 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Kirti's Cake Studio",
+    url: siteUrl,
+    telephone: "+917990797634",
+    image: [`${siteUrl}/images/hero-cake.jpg`],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Vadodara",
+      addressRegion: "Gujarat",
+      addressCountry: "IN",
+    },
+    areaServed: [{ "@type": "City", name: "Vadodara" }],
+    sameAs: ["https://www.instagram.com/kirtis_yummy_cake_class/"],
+    priceRange: "₹₹",
+    description:
+      "Premium custom cakes in Vadodara — sculpted, fondant, tier, theme, baby shower, and chocolate drip cakes. 100% vegetarian. Order on WhatsApp.",
+  }
+
   return (
     <html lang="en" className={`${cormorant.variable} ${greatVibes.variable} ${dmSans.variable} bg-cream`}>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          // JSON-LD must be a string. Keep it deterministic for crawling.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
+        {process.env.NODE_ENV === "development" && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  const style = document.createElement('style');
+                  style.innerHTML = '[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }';
+                  document.head.appendChild(style);
+                  
+                  const removeIndicators = () => {
+                    const indicators = document.querySelectorAll('[data-nextjs-static-indicator], [data-nextjs-static-indicator-container], #nextjs-static-indicator-root');
+                    indicators.forEach(el => el.remove());
+                  };
+                  
+                  const observer = new MutationObserver(removeIndicators);
+                  observer.observe(document.documentElement, { childList: true, subtree: true });
+                  removeIndicators();
+                })();
+              `,
+            }}
+          />
+        )}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
