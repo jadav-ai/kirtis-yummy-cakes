@@ -34,7 +34,7 @@ export function Footer() {
             className="mt-6 mx-auto max-w-[400px] text-[13px] leading-relaxed"
             style={{ color: "rgba(253,250,246,0.6)" }}
           >
-            Shop No 6, 1st Floor, 30 Meter Road,<br />
+            Shop No 6, 1st Floor, The Nest, 30 Meter Road,<br />
             Opposite Billabong School, Vadsar, Kalali,<br />
             Vadodara, Gujarat 390010
           </div>
