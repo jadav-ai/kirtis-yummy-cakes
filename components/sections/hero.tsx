@@ -122,7 +122,7 @@ export function Hero() {
             className="text-[10px] tracking-[0.45em] uppercase mb-6"
             style={{ color: "var(--champagne)" }}
           >
-            Handcrafted with Love · VADODARA
+            VADODARA / BARODA'S BEST CUSTOM CAKES
           </motion.p>
 
           <SplitLine text={LINES[0].text} className={LINES[0].className} baseDelay={1.6} />

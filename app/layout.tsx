@@ -26,21 +26,21 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kirtiscakestudio.com"),
   title: {
-    default: "Kirti's Cake Studio — Custom Cakes in Vadodara",
+    default: "Best Cakes & Bakery in Vadodara / Baroda | Kirti's Cake Studio",
     template: "%s | Kirti's Cake Studio",
   },
   description:
-    "Premium custom cakes in Vadodara by Kirti — sculpted, fondant, tier, theme, baby shower and chocolate drip cakes. 100% vegetarian. Order directly on WhatsApp.",
+    "Voted the best bakery in Vadodara / Baroda. Premium custom cakes by Kirti — sculpted, fondant, tier, theme, baby shower, and chocolate drip cakes. 100% vegetarian. Order on WhatsApp.",
   generator: "v0.app",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Kirti's Cake Studio — Custom Cakes in Vadodara",
+    title: "Best Cakes & Bakery in Vadodara / Baroda | Kirti's Cake Studio",
     description:
-      "Custom cakes in Vadodara: sculpted, fondant, tier, theme and chocolate drip cakes. Order on WhatsApp.",
+      "Voted the best bakery in Vadodara / Baroda. Premium custom cakes by Kirti — sculpted, fondant, tier, theme, baby shower, and chocolate drip cakes. 100% vegetarian. Order on WhatsApp.",
     type: "website",
     locale: "en_IN",
     siteName: "Kirti's Cake Studio",
@@ -48,15 +48,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kirti's Cake Studio — Custom Cakes in Vadodara",
-    description: "Premium custom cakes in Vadodara. Order on WhatsApp.",
+    title: "Best Cakes & Bakery in Vadodara / Baroda | Kirti's Cake Studio",
+    description: "Voted the best bakery in Vadodara / Baroda. Premium custom cakes by Kirti. 100% vegetarian. Order on WhatsApp.",
     images: ["/images/hero-cake.jpg"],
   },
   keywords: [
     "custom cakes Vadodara",
     "best cakes in Vadodara",
+    "best cakes in Baroda",
     "cake baker Vadodara",
     "bakery in Vadodara",
+    "best bakery in Vadodara",
+    "best bakery in Baroda",
     "theme cakes Vadodara",
     "wedding cakes Vadodara",
     "fondant cakes Vadodara",
@@ -79,7 +82,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kirtiscakestudio.com"
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -91,7 +94,7 @@ export default function RootLayout({
     image: [`${siteUrl}/images/hero-cake.jpg`],
     priceRange: "₹₹",
     description:
-      "Premium 100% vegetarian custom cakes in Vadodara. Specializing in sculpted, fondant, theme, and wedding cakes. Handcrafted with love.",
+      "Recognized as the best bakery in Vadodara / Baroda for premium 100% vegetarian custom cakes. Specializing in sculpted, fondant, theme, and wedding cakes. Handcrafted with love.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Vadodara",
@@ -106,6 +109,7 @@ export default function RootLayout({
     },
     areaServed: [
       { "@type": "City", name: "Vadodara" },
+      { "@type": "City", name: "Baroda" },
       { "@type": "City", name: "Alkapuri" },
       { "@type": "City", name: "Gotri" },
       { "@type": "City", name: "Akota" },

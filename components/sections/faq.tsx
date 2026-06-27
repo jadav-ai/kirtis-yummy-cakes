@@ -5,6 +5,10 @@ import { useState } from "react"
 
 const ITEMS = [
   {
+    q: "Why is Kirti's Cake Studio considered the best bakery in Vadodara / Baroda?",
+    a: "We handcraft every single cake with 100% vegetarian, premium ingredients. Unlike commercial bakeries, we focus on bespoke, artistic designs—from sculpted 3D cakes to elegant wedding tiers—making us the top choice for custom cakes in Vadodara and Baroda.",
+  },
+  {
     q: "How far in advance should I place my order?",
     a: "We recommend at least 3–5 days for most cakes. For wedding or large tiered cakes, 1–2 weeks ensures we can perfect every detail for you.",
   },
